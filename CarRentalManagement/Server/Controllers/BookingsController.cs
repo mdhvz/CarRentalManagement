@@ -13,11 +13,11 @@ namespace CarRentalManagement.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MakesController : ControllerBase
+    public class BookingsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public MakesController(IUnitOfWork unitOfWork)
+        public BookingsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -34,7 +34,7 @@ namespace CarRentalManagement.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMake(int id)
         {
-          var make = await _unitOfWork.Makes.Get(q => q.id == id);
+            var make = await _unitOfWork.Makes.Get(q => q.id == id);
             if (make == null)
             {
                 return NotFound();
@@ -60,7 +60,7 @@ namespace CarRentalManagement.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await MakeExists(id)) 
+                if (!await MakeExists(id))
                 {
                     return NotFound();
                 }
@@ -88,7 +88,7 @@ namespace CarRentalManagement.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMake(int id)
         {
-            var make =await _unitOfWork.Makes.Get(q =>q.id == id);
+            var make = await _unitOfWork.Makes.Get(q => q.id == id);
             if (make == null)
             {
                 return NotFound();
@@ -102,7 +102,7 @@ namespace CarRentalManagement.Server.Controllers
         private async Task<bool> MakeExists(int id)
         {
             var make = await _unitOfWork.Makes.Get(q => q.id == id);
-            return make!= null;
+            return make != null;
         }
     }
 }
